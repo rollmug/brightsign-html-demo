@@ -29,6 +29,9 @@ module.exports = {
             patterns: [{
                 from: './public/*.html',
                 to: path.resolve(__dirname, 'dist')
+            }, {
+                from: './.env',
+                to: path.resolve(__dirname, 'dist')
             }]
         })
     ]

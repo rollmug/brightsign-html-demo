@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+require('dotenv').config();
 
-const dgram = require('node:dgram');
+const port = process.env.PORT || 3000;
+const dgram = require('dgram');
 const client = dgram.createSocket('udp4');
 
 app.use(express.static(__dirname + "/public"));
@@ -13,20 +14,19 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-app.post('/', (req, res) => {
-    // Send a message to the UDP server
-    const message="Button clicked on the client!";
-    const destination = 'localhost';
-    const port = 8080;
+app.get('/udp/:command', (req, res) => {
+    const command = req.params.command;
+    const destination = process.env.UDP_SERVER;
+    const port = process.env.UDP_PORT;
 
-    client.send(message, port, destination, (err) => {
+    client.send(command, port, destination, (err) => {
         if (err) {
             console.error(err);
             res.json({ message: 'UDP message failed' });
         }
 
         console.log('Message sent!');
-        res.json({ message: 'UDP message sent successfully' });
+        res.json({ message: `UDP message sent successfully with command: ${command}` });
     });
 });
 
