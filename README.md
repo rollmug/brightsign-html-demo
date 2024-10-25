@@ -43,6 +43,8 @@ You'll need to bundle the app using webpack. Use the included shortcut to bundle
 npm run build
 ```
 
+This will create a new `dist` directory with the needed files.
+
 ## Test
 
 To test locally in a browser, you can run:
