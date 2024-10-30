@@ -19,15 +19,22 @@ app.get('/udp/:command', (req, res) => {
     const destination = process.env.UDP_SERVER;
     const port = process.env.UDP_PORT;
 
-    client.send(command, port, destination, (err) => {
-        if (err) {
-            console.error(err);
-            res.json({ message: 'UDP message failed' });
-        }
+    try {
+        client.send(command, port, destination, (err) => {
+            if (err) {
+                console.error(err);
+                res.json({ message: 'UDP message failed' });
+                return;
+            }
 
-        console.log('Message sent!');
-        res.json({ message: `UDP message sent successfully with command: ${command}` });
-    });
+            console.log('Message sent!');
+            res.json({ message: `UDP message sent successfully with command: ${command}` });
+        });
+    } catch (error) {
+        console.error(error);
+        res.json({ message: `An error occurred while sending the UDP message: ${error.message}` });
+        // res.json({ message: 'An error occurred while sending the UDP message' });
+    }
 });
 
 app.listen(port, () => {
