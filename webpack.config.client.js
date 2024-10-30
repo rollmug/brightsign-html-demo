@@ -7,7 +7,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist/js'),
         filename: 'client.js'
     },
-    mode: 'production',
+    mode: 'development',
+    devtool: 'source-map',
     target: 'web',
     resolve: {
         extensions: ['.html', '.js']
