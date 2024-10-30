@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
 
 app.get('/udp/:command', (req, res) => {
     const command = req.params.command;
-    const destination = process.env.UDP_SERVER;
-    const port = process.env.UDP_PORT;
+    const destination = process.env.UDP_SERVER || 'localhost';
+    const port = process.env.UDP_PORT || 5000;
 
     try {
         client.send(command, port, destination, (err) => {
