@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: './src/client.js',
     output: {
-        path: path.resolve(__dirname, 'dist/js'),
+        path: path.resolve(__dirname, 'dist/public/src'),
         filename: 'client.js'
     },
     mode: 'development',
@@ -27,13 +27,23 @@ module.exports = {
     },
     plugins: [
         new CopyWebpackPlugin({
-            patterns: [{
-                from: './public/*.html',
-                to: path.resolve(__dirname, 'dist')
-            }, {
-                from: './.env',
-                to: path.resolve(__dirname, 'dist')
-            }]
+            patterns: [
+                {
+                    from: './public/images/*',
+                    to: path.resolve(__dirname, 'dist')
+                },
+                {
+                    from: './public/*.json',
+                    to: path.resolve(__dirname, 'dist')
+                },
+                {
+                    from: './views/*.ejs',
+                    to: path.resolve(__dirname, 'dist')
+                },
+                {
+                    from: './.env',
+                    to: path.resolve(__dirname, 'dist')
+                }]
         })
     ]
 };

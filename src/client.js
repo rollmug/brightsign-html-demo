@@ -3,9 +3,9 @@ import './styles.css';
 const result = document.getElementById('result');
 const elements = document.querySelectorAll(".udp-sender");
 
-for (let i = 0; i < elements.length; i++) {
-    elements[i].addEventListener('click', (e) => {
-        const command = e.target.dataset.command;
+elements.forEach(element => {
+    const command = element.getAttribute('data-command');
+    element.addEventListener('click', (e) => {
         fetch(`/udp/${command}`)
             .then(response => response.json())
             .then(data => {
@@ -18,4 +18,4 @@ for (let i = 0; i < elements.length; i++) {
                 result.innerHTML = 'An error occurred';
             });
     });
-}
+});

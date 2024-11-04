@@ -5,13 +5,21 @@ require('dotenv').config();
 const port = process.env.PORT || 3000;
 const dgram = require('dgram');
 const client = dgram.createSocket('udp4');
+const fs = require('fs');
+
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').__express);
+app.set('views', './views');
 
 app.use(express.static(__dirname + "/public"));
-app.use(express.static(__dirname + "/js"));
 app.use(express.json());
 
+let dataJSON = fs.readFileSync('./public/data.json');
+// console.log(JSON.parse(dataJSON));
+
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    const data = JSON.parse(dataJSON);
+    res.render('index', { title: 'My Express App', items: data.items });
 });
 
 app.get('/udp/:command', (req, res) => {
@@ -28,12 +36,11 @@ app.get('/udp/:command', (req, res) => {
             }
 
             console.log('Message sent!');
-            res.json({ message: `UDP message sent successfully with command: ${command}` });
+            res.json({ message: `UDP message sent successfully over port ${port} with command: ${command}` });
         });
     } catch (error) {
         console.error(error);
         res.json({ message: `An error occurred while sending the UDP message: ${error.message}` });
-        // res.json({ message: 'An error occurred while sending the UDP message' });
     }
 });
 

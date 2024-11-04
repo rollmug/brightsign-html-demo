@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrightSign Node Test</title>
+  </head>
+
+  <body class="bg-gray-100">
+    <main class="">
+      <section class="text-center pt-32 pb-12 _animate-fade-up">
+        <h1 class="font-bold text-2xl md:text-3xl lg:text-4xl pb-7">
+          Node Test
+        </h1>
+        <p class="text-gray-600 mb-3">
+          Donec ullamcorper nulla non metus auctor fringilla. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+        </p>
+        <p id="result" class="my-6 text-gray-600">Select an image below.</p>
+      </section>
+
+      <section>
+        <div
+          class="flex flex-col bg-white m-auto p-auto shadow-lg animate-fade-up"
+        >
+          <div
+            class="flex overflow-x-scroll py-10 hide-scroll-bar snap-x snap-mandatory"
+          >
+            <div class="flex flex-nowrap">
+              <% items.map((item, i)=>{ %>
+              <div class="inline-block p-3 snap-center ml-4">
+                <div class="py-3">
+                  <h3 class="text-lg font-semibold text-gray-800">
+                    <%= item.title %>
+                  </h3>
+                </div>
+                <div data-command="item-<%= i %>"
+                  class="udp-sender cursor-pointer aspect-video h-64 _max-w-xs overflow-hidden border-gray-500 border-[1px] rounded-sm shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
+                >
+                  <div
+                    class="w-full h-full bg-cover bg-center"
+                    style="
+                      background-image: url('/images/<%= item.fileName %>');
+                    "
+                  ></div>
+                </div>
+                <p class="text-sm text-gray-600 mt-2"><%= item.description %></p>
+              </div>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./src/client.js"></script>
+  </body>
+</html>
