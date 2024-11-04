@@ -55,4 +55,4 @@ npm start
 
 Then, open a browser with http://localhost:3000 (or whatever port you specified in `.env`)
 
-![Screenshot](https://cdn.statically.io/gh/rollmug/static-assets/master/images/node-test.png)
+![Screenshot](https://cdn.statically.io/gh/rollmug/static-assets/master/images/node-test-screenshot.jpg)
