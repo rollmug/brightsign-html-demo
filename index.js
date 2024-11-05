@@ -14,10 +14,76 @@ app.set('views', './views');
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 
+const imagesData = {
+    "items": [
+        {
+            "title": "Lorem ipsum dolor sit amet",
+            "description": "Consectetur adipiscing elit",
+            "fileName": "image-1.jpeg"
+        },
+        {
+            "title": "Sed do eiusmod tempor",
+            "description": "Incididunt ut labore et dolore",
+            "fileName": "image-2.jpeg"
+        },
+        {
+            "title": "Magna aliqua ut enim",
+            "description": "Ad minim veniam quis nostrud",
+            "fileName": "image-3.jpeg"
+        },
+        {
+            "title": "Exercitation ullamco laboris",
+            "description": "Nisi ut aliquip ex ea commodo",
+            "fileName": "image-4.jpeg"
+        },
+        {
+            "title": "Consequat duis aute irure",
+            "description": "Dolor in reprehenderit in voluptate",
+            "fileName": "image-5.jpeg"
+        },
+        {
+            "title": "Velit esse cillum dolore",
+            "description": "Eu fugiat nulla pariatur",
+            "fileName": "image-6.jpeg"
+        },
+        {
+            "title": "Excepteur sint occaecat",
+            "description": "Cupidatat non proident sunt",
+            "fileName": "image-7.jpeg"
+        },
+        {
+            "title": "In culpa qui officia",
+            "description": "Deserunt mollit anim id est",
+            "fileName": "image-8.jpeg"
+        },
+        {
+            "title": "Laborum sed ut perspiciatis",
+            "description": "Unde omnis iste natus error",
+            "fileName": "image-9.jpeg"
+        },
+        {
+            "title": "Sit voluptatem accusantium",
+            "description": "Doloremque laudantium totam",
+            "fileName": "image-10.jpeg"
+        },
+        {
+            "title": "Rem aperiam eaque ipsa",
+            "description": "Quae ab illo inventore veritatis",
+            "fileName": "image-11.jpeg"
+        },
+        {
+            "title": "Et quasi architecto beatae",
+            "description": "Vitae dicta sunt explicabo",
+            "fileName": "image-12.jpeg"
+        }
+    ]
+};
+
 app.get('/', async (req, res) => {
     try {
-        let dataJSON = await fs.readFile('./public/data.json');
-        const data = JSON.parse(dataJSON);
+        // let dataJSON = await fs.readFile('./public/data.json');
+        // const data = JSON.parse(dataJSON);
+        const data = imagesData;
         res.render('index', { title: 'Node Express App', items: data.items });
     } catch (error) {
         console.error(error);
