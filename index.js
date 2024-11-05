@@ -5,7 +5,7 @@ require('dotenv').config();
 const port = process.env.PORT || 3000;
 const dgram = require('dgram');
 const client = dgram.createSocket('udp4');
-const fs = require('fs');
+const fs = require('fs').promises;
 
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
@@ -14,12 +14,15 @@ app.set('views', './views');
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 
-let dataJSON = fs.readFileSync('./public/data.json');
-// console.log(JSON.parse(dataJSON));
-
-app.get('/', (req, res) => {
-    const data = JSON.parse(dataJSON);
-    res.render('index', { title: 'My Express App', items: data.items });
+app.get('/', async (req, res) => {
+    try {
+        let dataJSON = await fs.readFile('./public/data.json');
+        const data = JSON.parse(dataJSON);
+        res.render('index', { title: 'Node Express App', items: data.items });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(`An error occurred while reading the JSON data: ${error.message}`);
+    }
 });
 
 app.get('/udp/:command', (req, res) => {
