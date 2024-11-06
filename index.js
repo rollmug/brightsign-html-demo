@@ -7,9 +7,9 @@ const dgram = require('dgram');
 const client = dgram.createSocket('udp4');
 const fs = require('fs').promises;
 
-app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').__express);
-app.set('views', './views');
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
@@ -81,9 +81,9 @@ const imagesData = {
 
 app.get('/', async (req, res) => {
     try {
-        // let dataJSON = await fs.readFile('./public/data.json');
-        // const data = JSON.parse(imagesData);
-        const data = imagesData;
+        let dataJSON = await fs.readFile('./public/data.json');
+        const data = JSON.parse(dataJSON);
+        // const data = imagesData;
         res.render('index', { title: 'Node Express App', items: data.items });
     } catch (error) {
         console.error(error);
