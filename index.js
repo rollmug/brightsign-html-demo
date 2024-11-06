@@ -81,7 +81,7 @@ const imagesData = {
 
 app.get('/', async (req, res) => {
     try {
-        let dataJSON = await fs.readFile('./public/data.json');
+        let dataJSON = await fs.readFile(__dirname + '/public/data.json');
         const data = JSON.parse(dataJSON);
         // const data = imagesData;
         res.render('index', { title: 'Node Express App', items: data.items });
