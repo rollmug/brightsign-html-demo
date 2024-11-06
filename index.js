@@ -82,12 +82,12 @@ const imagesData = {
 app.get('/', async (req, res) => {
     try {
         // let dataJSON = await fs.readFile('./public/data.json');
-        // const data = JSON.parse(dataJSON);
+        // const data = JSON.parse(imagesData);
         const data = imagesData;
         res.render('index', { title: 'Node Express App', items: data.items });
     } catch (error) {
         console.error(error);
-        res.status(500).send(`An error occurred while reading the JSON data: ${error.message}`);
+        res.status(400).render('error', { message: `An error occurred while reading the JSON data: ${error.message}` });
     }
 });
 
